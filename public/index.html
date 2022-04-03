@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Missy Tee - clothing store</title>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+
+	<script class="garmentListTemplate" type="type/script-x" >
+		<div>
+			{{garments.length}} <strong>garments found</strong>
+		</div>
+		<div class="garments">
+			{{#each garments}}
+
+		<div class="garment">
+		<img src="/images/{{img}}" alt="">
+
+		<form action="/garment/" method="post">
+			<input type="hidden" name="img" value="{{img}}" >
+			<div class="field" >
+				{{description}}
+			</div>
+			<div class="field">
+				<strong>{{price}}</strong>
+			</div>
+		</form>
+	</div>
+	{{/each}}
+		</div>
+	</script>
+</head>
+<body>
+	<div class="container" >
+		<h1>Missy Tee - clothing store</h1>
+		<div class="filter" >
+			<h2>Filter</h2>
+			<div class="genders" >
+				<input type="radio" name="gender" value="All"> All
+				<input type="radio" name="gender" value="Male"> Male
+				<input type="radio" name="gender" value="Female"> Female
+				<input type="radio" name="gender" value="Unisex"> Unisex
+			</div>
+			<div class="seasons" >
+				<input type="radio" name="season" value="All"> All
+				<input type="radio" name="season" value="Summer"> Summer
+				<input type="radio" name="season" value="Winter"> Winter
+				<input type="radio" name="season" value="All Seasons"> All seasons
+			</div>
+			<div>
+				Filter by price range: 
+				<input type="range" name="priceRange" max="1000" step="50" class="priceRange" value="0"  >
+				R<span class="showPriceRange" >0</span>.00
+			</div>
+		</div>
+
+		<div>
+			<h2>Garments</h2>
+			
+			<div class="searchResults" >
+
+			</div>
+		</div>
+	</div>
+	<script src="app.js"></script>
+</body>
+</html>
