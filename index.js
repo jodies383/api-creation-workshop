@@ -51,5 +51,3 @@ app.listen(PORT, function () {
 	console.log(`App started on port ${PORT}`)
 });
 
-
-

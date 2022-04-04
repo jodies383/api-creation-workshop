@@ -31,3 +31,28 @@ img {
 	margin: 0.25em;
 	border-radius: 0.5em;
 }
+
+.hidden {
+	display: none;
+}
+
+.field label {
+	display: block;
+	width: 5em;
+	margin-top: 0.5em;
+}
+
+.mt1 {
+	margin-top: 1em;
+}
+
+
+.message {
+
+	margin-top: 1em;
+	padding: 1em;
+
+	background-color: lightsalmon;
+
+
+}
