@@ -4,11 +4,11 @@ const hideAddGarmetBtn = document.querySelector('.hideAddGarmetBtn');
 const addGarmetSection = document.querySelector('.add.garment');
 const addGarmetButtonSection = document.querySelector('.add.button');
 
-function showMessage(value){
+function showMessage(value) {
 	message.innerHTML = value;
 	message.classList.toggle('hidden');
-	
-	setTimeout(() =>  {
+
+	setTimeout(() => {
 		message.innerHTML = '';
 		message.classList.toggle('hidden');
 	}, 3000);
@@ -16,10 +16,10 @@ function showMessage(value){
 
 function toggleAddGarmetScreen() {
 	addGarmetSection.classList.toggle('hidden');
-	addGarmetButtonSection.classList.toggle('hidden');
+	// addGarmetButtonSection.classList.toggle('hidden');
 }
 
-hideAddGarmetBtn.addEventListener('click', function(evt) {
+hideAddGarmetBtn.addEventListener('click', function (evt) {
 	toggleAddGarmetScreen()
 });
 
@@ -31,14 +31,14 @@ const fieldManager = FieldManager({
 	'price': 0.00
 });
 
-addGarmetBtn.addEventListener('click', function(evt) {
-
+addGarmetBtn.addEventListener('click', function (evt) {
+	
 	// fields on the screen
 	const fields = fieldManager.getValues();
 
 	axios
 		.post('/api/garments', fields)
-		.then(result =>{
+		.then(result => {
 			if (result.data.status == 'error') {
 				showMessage(result.data.message);
 			} else {
@@ -55,7 +55,7 @@ addGarmetBtn.addEventListener('click', function(evt) {
 		});
 });
 
-addGarmetButtonSection.addEventListener('click', function(evt) {
+addGarmetButtonSection.addEventListener('click', function (evt) {
 	evt.preventDefault();
 	toggleAddGarmetScreen()
 });
