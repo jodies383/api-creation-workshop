@@ -1,12 +1,15 @@
 const express = require('express');
 const { get } = require('express/lib/request');
 const app = express();
+const fs = require("fs");
 
 // enable the static folder...
 app.use(express.static('public'));
 // enable the req.body object
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
 // import the dataset to be used here
 const garments = require('./garments.json');
 
@@ -33,9 +36,9 @@ app.get('/api/garments', function (req, res) {
 	// there is no template
 	res.json({ garments: filteredGarments });
 });
-app.get('/api/garments/price/:price', function(req, res){
+app.get('/api/garments/price/:price', function (req, res) {
 	const maxPrice = Number(req.params.price);
-	const filteredGarments = garments.filter( garment => {
+	const filteredGarments = garments.filter(garment => {
 		// filter only if the maxPrice is bigger than maxPrice
 		if (maxPrice > 0) {
 			return garment.price <= maxPrice;
@@ -43,8 +46,8 @@ app.get('/api/garments/price/:price', function(req, res){
 		return true;
 	});
 
-	res.json({ 
-		garments : filteredGarments
+	res.json({
+		garments: filteredGarments
 	});
 });
 app.post('/api/garments', (req, res) => {
@@ -62,7 +65,7 @@ app.post('/api/garments', (req, res) => {
 	// only 3 fields are made mandatory here
 	// you can change that
 
-	if (!description || !img || !price) {
+	if (!description || !img || !price || !gender || !season) {
 		res.json({
 			status: 'error',
 			message: 'Required data not supplied',
@@ -70,20 +73,30 @@ app.post('/api/garments', (req, res) => {
 	} else {
 
 		// you can check for duplicates here using garments.find
-		
-		// add a new entry into the garments list
-		garments.push({
-			description,
-			img,
-			gender,
-			season,
-			price
-		});
+		if (garments.find(element => element.description === description)) {
+			res.json({
+				status: 'error',
+				message: 'Item already exists',
+			});
+		}
+		else {
 
-		res.json({
-			status: 'success',
-			message: 'New garment added.',
-		});
+			// add a new entry into the garments list
+			garments.push({
+				description,
+				img,
+				gender,
+				season,
+				price
+			});
+			//adding garments into the JSON file
+			fs.writeFileSync('./garments.json', JSON.stringify(garments))
+
+			res.json({
+				status: 'success',
+				message: 'New garment added.',
+			});
+		}
 	}
 
 });

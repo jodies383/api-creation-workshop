@@ -208,5 +208,12 @@
 		"price": "79.99",
 		"gender": "Male",
 		"season": "Summer"
+	},
+	{
+		"description": "Basketball shorts",
+		"img": "fashion.png",
+		"gender": "Male",
+		"season": "Summer",
+		"price": "208.50"
 	}
 ]

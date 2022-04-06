@@ -6,12 +6,12 @@ const addGarmetButtonSection = document.querySelector('.add.button');
 
 function showMessage(value) {
 	message.innerHTML = value;
-	message.classList.toggle('hidden');
+	// message.classList.toggle('hidden');
 
-	setTimeout(() => {
-		message.innerHTML = '';
-		message.classList.toggle('hidden');
-	}, 3000);
+	// setTimeout(() => {
+	// 	message.innerHTML = '';
+	// 	message.classList.toggle('hidden');
+	// }, 3000);
 }
 
 function toggleAddGarmetScreen() {
@@ -59,3 +59,13 @@ addGarmetButtonSection.addEventListener('click', function (evt) {
 	evt.preventDefault();
 	toggleAddGarmetScreen()
 });
+function myFunction() {
+	// Get the snackbar DIV
+	var x = document.getElementById("snackbar");
+  
+	// Add the "show" class to DIV
+	x.className = "show";
+  
+	// After 3 seconds, remove the show class from DIV
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
