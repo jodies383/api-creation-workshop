@@ -6,16 +6,16 @@ The POST route should be callable form the DOM like this:
 
 ```js
 
-// 
+// fields to be read from the DOM
 const domFields = {
   description,
   image,
   gender,
   season,
   price
-})
+};
 
-axios.post('/api/garments', domFields
+axios.post('/api/garments', domFields)
   .then((result) => {
       // show snackbar - with success message
       console.log(result.data);
