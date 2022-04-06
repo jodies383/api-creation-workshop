@@ -15,18 +15,18 @@ Create these roots:
 
 API route    | Type | Parameters | Description
 -------------|------|-------- | --------
-`/api/login` | POST | `{username : 'username_to_login' }` | Create a JWT token - the token should store the username. The API should only create a token if the supplied username is a valid username in the [jsonplaceholder users API] (https://jsonplaceholder.typicode.com/)
-`/api/posts` | GET  | none | Return all the posts for the username stored in the token. The end point is not accessible without a valid JWT token. Use the token created by the call to `/api/login`.
+`/api/login` | POST | `{username : 'username_to_login' }` | Create a JWT token - the token should store the username. The API should only create a token if the supplied username is a valid username in the [jsonplaceholder users API](https://jsonplaceholder.typicode.com/). The route should return the created key like this `{ key : `the_key_here` }`
+`/api/posts` | GET  | none | Return all the posts for the username stored in the token. The end point is not accessible without a valid JWT token.
 
 The token should be expire after 5 minutes. Experiment with different token expiration, times.
 
 The token is to be sent in as a BEARER token in the header or the request.
 
 Use:
-	* ExpressJS with [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) to create the tokens
-	* [dotenv](https://www.npmjs.com/package/dotenv) to read the token secret from a `.env` file
-	* axios to call the [jsonplaceholder API](https://jsonplaceholder.typicode.com/users)
-	* Thunder Client in VSCode to test this API
+* ExpressJS with [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) to create the tokens
+* [dotenv](https://www.npmjs.com/package/dotenv) to read the token secret from a `.env` file
+* axios to call the [jsonplaceholder API](https://jsonplaceholder.typicode.com/users)
+* Thunder Client in VSCode to test this API
 
 Use these calls on the JSON placeholder API
 
@@ -49,6 +49,10 @@ npm install express dotenv jsonwebtoken axios
 ## Add a JWT token to Missy Tee
 
 Add a JWT token to your Missy Tee API.
+
+Create the token by creating it [online here](https://jwt.io/).
+
+Use the created token in your app using by decoding it with [jswonwebtoken](https://www.npmjs.com/package/jsonwebtoken). Use the default encryption & the same secret to encode sign & decode.ß
 
 The token should expire after 24 hours.
 
