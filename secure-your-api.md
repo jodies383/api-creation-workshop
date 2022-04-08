@@ -1,6 +1,6 @@
 # Secure your API
 
-There is no security on the API endpoints that we have created and once deployed they can be called by anyone. In this sectione we are going to fix that by using JSON Web Tokens.
+There is no security on the API endpoints that we have created and once deployed they can be called by anyone. In this section we are going to fix that by using JSON Web Tokens.
 
 Watch these 2 videos before your proceed:
 
