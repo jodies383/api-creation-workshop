@@ -1,22 +1,63 @@
+require('dotenv').config()
 const express = require('express');
 const { get } = require('express/lib/request');
 const app = express();
 const fs = require("fs");
-
+const axios = require('axios');
+const jwt = require('jsonwebtoken')
 // enable the static folder...
 app.use(express.static('public'));
 // enable the req.body object
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
 // import the dataset to be used here
 const garments = require('./garments.json');
+const { json } = require('express/lib/response');
 
 const PORT = process.env.PORT || 4017;
 
 // API routes to be added here
-app.get('/api/garments', function (req, res) {
+
+
+app.post('/api/login', (req, res, next) => {
+	const { username } = req.body;
+
+	// console.log(req.body)
+
+	const token = jwt.sign({
+		username
+	}, process.env.ACCESS_TOKEN_SECRET);
+
+	res.json({
+		token
+	});
+
+})
+function verifyToken(req, res, next) {
+
+	const token = req.headers.authorization && req.headers.authorization.split(" ")[1];
+
+	// console.log(req.headers.authorization);
+	if (!req.headers.authorization || !token) {
+		res.sendStatus(401);
+		return;
+	}
+
+
+	const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+	const { username } = decoded;
+
+	if (username && username === 'jodies383') {
+		next();
+	} else {
+		res.sendStatus(403);
+	}
+
+}
+
+app.get('/api/garments', verifyToken, function (req, res) {
 	const gender = req.query.gender;
 	const season = req.query.season;
 
@@ -29,11 +70,13 @@ app.get('/api/garments', function (req, res) {
 			return garment.gender === gender
 		} else if (season != 'All') { // if season was supplied
 			return garment.season === season
+		} else if (!gender || !season) {
+			return garment.gender === 'All'
+				&& garment.season === 'All'
 		}
 		return true;
 	});
-	// note that this route just send JSON data to the browser
-	// there is no template
+
 	res.json({ garments: filteredGarments });
 });
 app.get('/api/garments/price/:price', function (req, res) {
@@ -51,6 +94,14 @@ app.get('/api/garments/price/:price', function (req, res) {
 	});
 });
 app.post('/api/garments', (req, res) => {
+	// const url = 'http://localhost:4017/api/garments'
+	// let data
+	// axios
+	// 	.get(`/api/garments`)
+	// 	.then(function (result) {
+	// 			data = result.data.garments
+	// 	});
+	// 	axios.post(url, data, { headers: { authorization: `Bearer ${JSON.parse(localStorage.getItem('accessToken'))}` } });
 
 	// get the fields send in from req.body
 	const {

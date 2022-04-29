@@ -70,6 +70,9 @@ img {
 
 
 }
+.errorMessage{
+	color: rgb(177, 69, 26);
+}
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
