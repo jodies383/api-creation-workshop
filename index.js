@@ -37,8 +37,6 @@ app.post('/api/login', (req, res, next) => {
 function verifyToken(req, res, next) {
 
 	const token = req.headers.authorization && req.headers.authorization.split(" ")[1];
-
-	// console.log(req.headers.authorization);
 	if (!req.headers.authorization || !token) {
 		res.sendStatus(401);
 		return;
@@ -49,7 +47,7 @@ function verifyToken(req, res, next) {
 
 	const { username } = decoded;
 
-	if (username && username === 'jodies383') {
+	if (username && username === process.env.USERNAME) {
 		next();
 	} else {
 		res.sendStatus(403);
@@ -94,15 +92,6 @@ app.get('/api/garments/price/:price', function (req, res) {
 	});
 });
 app.post('/api/garments', (req, res) => {
-	// const url = 'http://localhost:4017/api/garments'
-	// let data
-	// axios
-	// 	.get(`/api/garments`)
-	// 	.then(function (result) {
-	// 			data = result.data.garments
-	// 	});
-	// 	axios.post(url, data, { headers: { authorization: `Bearer ${JSON.parse(localStorage.getItem('accessToken'))}` } });
-
 	// get the fields send in from req.body
 	const {
 		description,
