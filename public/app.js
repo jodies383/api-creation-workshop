@@ -37,6 +37,8 @@ register.addEventListener('click', function () {
 				axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 			});
 		register.classList.add('hidden')
+		login.classList.remove('hidden')
+
 	}
 	else if (!username.value) {
 		errMessage.innerHTML = ('enter your github username')

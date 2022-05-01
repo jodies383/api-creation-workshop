@@ -3,24 +3,23 @@ body {
 	font-size: 16px;
 	line-height: 1.5;
 	color: #333;
-	background-color: lightgoldenrodyellow;
 }
-
+.title{
+	color: white;
+}
 #addGarmentBtn {
 	margin-bottom: 2%;
 }
 
 #addGarmentBtn a:link, #addGarmentBtn a:visited {
-	color: white !important;
+	color: white;
 	text-decoration: none;
-	background-color: #333;
 	padding: 10px 20px;
 	text-decoration: none;
 }
 
 .container {
 	margin: auto;
-	width: 60%;
 }
 
 img {
@@ -39,7 +38,7 @@ img {
 
 .garment {
 	flex: 1;
-	background-color: beige;
+	/* background-color: beige; */
 	border: 1px solid greenyellow;
 	padding: 1em;
 	margin: 0.25em;
@@ -60,7 +59,12 @@ img {
 	margin-top: 1em;
 }
 
-
+.loginInfo{
+	margin-top: 15%;
+}
+.register, .login{
+	margin-left: 1%;
+}
 .message {
 
 	margin-top: 1em;
@@ -69,6 +73,9 @@ img {
 	background-color: lightsalmon;
 
 
+}
+.filter{
+	margin-top: 1%;
 }
 .errorMessage{
 	color: rgb(177, 69, 26);
