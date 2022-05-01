@@ -52,7 +52,7 @@ Add a JWT token to your Missy Tee API.
 
 Create the token by creating it [online here](https://jwt.io/).
 
-Use the created token in your app using by decoding it with [jswonwebtoken](https://www.npmjs.com/package/jsonwebtoken). Use the default encryption & the same secret to encode sign & decode.ß
+Use the created token in your app using by decoding it with [jswonwebtoken](https://www.npmjs.com/package/jsonwebtoken). Use the default encryption & the same secret to encode sign & decode.
 
 The token should expire after 24 hours.
 
