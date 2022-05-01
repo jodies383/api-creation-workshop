@@ -15,7 +15,8 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "node-localstorage": "^2.2.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3"
   },
   "keywords": []
 }

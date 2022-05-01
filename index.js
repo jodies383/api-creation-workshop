@@ -15,6 +15,18 @@ app.use(express.urlencoded({ extended: false }));
 const garments = require('./garments.json');
 const { json } = require('express/lib/response');
 
+const GarmentManager = require('./shop/garment-manager');
+const pg = require("pg");
+const Pool = pg.Pool;
+
+const connectionString = process.env.DATABASE_URL || 'postgresql://jodie@localhost:5432/missy_tee_app';
+
+const pool = new Pool({
+	connectionString,
+});
+
+const garmentManager = GarmentManager(pool);
+
 const PORT = process.env.PORT || 4017;
 
 // API routes to be added here
@@ -55,40 +67,28 @@ function verifyToken(req, res, next) {
 
 }
 
-app.get('/api/garments', verifyToken, function (req, res) {
+app.get('/api/garments', verifyToken, async function(req, res){
+
 	const gender = req.query.gender;
 	const season = req.query.season;
 
-	const filteredGarments = garments.filter(garment => {
-		// if both gender & season was supplied
-		if (gender != 'All' && season != 'All') {
-			return garment.gender === gender
-				&& garment.season === season;
-		} else if (gender != 'All') { // if gender was supplied
-			return garment.gender === gender
-		} else if (season != 'All') { // if season was supplied
-			return garment.season === season
-		} else if (!gender || !season) {
-			return garment.gender === 'All'
-				&& garment.season === 'All'
-		}
-		return true;
+	const filteredGarments = await garmentManager.filter({
+		gender,
+		season
 	});
 
-	res.json({ garments: filteredGarments });
+	res.json({ 
+		garments : filteredGarments
+	});
 });
-app.get('/api/garments/price/:price', function (req, res) {
-	const maxPrice = Number(req.params.price);
-	const filteredGarments = garments.filter(garment => {
-		// filter only if the maxPrice is bigger than maxPrice
-		if (maxPrice > 0) {
-			return garment.price <= maxPrice;
-		}
-		return true;
-	});
 
-	res.json({
-		garments: filteredGarments
+app.get('/api/garments/price/:price', async function(req, res){
+
+	const maxPrice = Number(req.params.price);
+	const filteredGarments = await garmentManager.filterByPrice(maxPrice);
+
+	res.json({ 
+		garments : filteredGarments
 	});
 });
 app.post('/api/garments', (req, res) => {
